@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.meme-container {
+  position: relative;
+  display: inline-block;
+}
+
+#meme-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.top-meme-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+  white-space: normal;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+#top-text {
+  color: grey; /* Change this to your desired text color */
+  font-size: 24px; /* Adjust as necessary */
+  padding: 5px;
+  /* background-color: rgba(0, 0, 0, 0.5); Optional: adds a semi-transparent background for better readability */
+  box-sizing: border-box;
+}
+
+.bottom-meme-text {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+  white-space: normal;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+#bottom-text {
+  color: grey; /* Change this to your desired text color */
+  font-size: 24px; /* Adjust as necessary */
+  padding: 5px;
+  /* background-color: rgba(0, 0, 0, 0.5); Optional: adds a semi-transparent background for better readability */
+  box-sizing: border-box;
+}
+
+
+.inputs {
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  font-size: 1em;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
