@@ -29,22 +29,22 @@ const MemeGenerator = () => {
 
     // Generate the first text
     const output1 = await generator(prompt1, {
-        temperature: 200,
-        max_new_tokens: 15,
-        // repetition_penalty: 1.5,
-        // no_repeat_ngram_size: 2,
-        num_beams: 1,
-        num_return_sequences: 1,
+      temperature: 200,
+      max_new_tokens: 15,
+      // repetition_penalty: 1.5,
+      // no_repeat_ngram_size: 2,
+      num_beams: 1,
+      num_return_sequences: 1,
     });
 
     // Generate the second text
     const output2 = await generator(prompt2, {
-        temperature: 0.1,
-        max_new_tokens: 15,
-        // repetition_penalty: 1.5,
-        // no_repeat_ngram_size: 2,
-        num_beams: 1,
-        num_return_sequences: 1,
+      temperature: 0.1,
+      max_new_tokens: 15,
+      // repetition_penalty: 1.5,
+      // no_repeat_ngram_size: 2,
+      num_beams: 1,
+      num_return_sequences: 1,
     });
 
     setTopText(output1[0].generated_text);
@@ -77,13 +77,13 @@ const MemeGenerator = () => {
 
     const canvasWidth = ctx.canvas.width;
 
-    if (topText ) {
+    if (topText) {
       ctx.fillText(topText, canvasWidth / 6, 50);
       // ctx.strokeText(topText, canvasWidth / 2, 50);
     }
 
     if (bottomText) {
-      ctx.fillText(bottomText , canvasWidth / 2, ctx.canvas.height - 20);
+      ctx.fillText(bottomText, canvasWidth / 2, ctx.canvas.height - 20);
       ctx.strokeText(bottomText, canvasWidth / 2, ctx.canvas.height - 20);
     }
   };
@@ -104,9 +104,9 @@ const MemeGenerator = () => {
       </button>
 
       <div >
-      Or use big brain
+        Or use big brain
       </div>
-      
+
 
       <div className="inputs">
         <div className="input-group">
@@ -132,33 +132,23 @@ const MemeGenerator = () => {
         </div>
       </div>
 
-        {/* <div className="meme-container">
-          <img id="meme-image" src="ltt.png" alt="Meme Image" />
-          <div className="text top-meme-text" id="top-text">
-            {topText}
-          </div>
-          <div className="text bottom-meme-text" id="bottom-text">
-            {bottomText}
-          </div>
-        </div> */}
 
-        <canvas ref={canvasRef} width={500} height={500} style={{ display: 'none' }}></canvas>
+      <div className="meme-preview">
+        <canvas ref={canvasRef} width={500} height={500} style={{ border: '1px solid black' }}></canvas>
+      </div>
+
       <img
         ref={imageRef}
         src="ltt.png"
-        alt="Meme"
+        alt="HaHa Meme"
         style={{ display: 'none' }}
         onLoad={() => drawMeme(canvasRef.current.getContext('2d'), imageRef.current)}
       />
 
       <button onClick={downloadMeme} disabled={loading}>
-        Download Meme
+        Save this Picaso you fucking genius
       </button>
 
-      <div className="meme-preview">
-        <canvas ref={canvasRef} width={500} height={500} style={{ border: '1px solid black' }}></canvas>
-      </div>
-      
     </div>
   );
 };
