@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { pipeline, env } from '@xenova/transformers';
 env.allowLocalModels = false;
 
@@ -6,6 +6,8 @@ const MemeGenerator = () => {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
   const [loading, setLoading] = useState(false);
+  const canvasRef = useRef(null);
+  const imageRef = useRef(null);
 
   const prompts = [
     "Shitcoins",
@@ -51,6 +53,49 @@ const MemeGenerator = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    const image = imageRef.current;
+
+    if (image.complete) {
+      drawMeme(ctx, image);
+    } else {
+      image.onload = () => drawMeme(ctx, image);
+    }
+  }, [topText, bottomText]);
+
+  const drawMeme = (ctx, image) => {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    ctx.font = '12px ComicSans';
+    // ctx.fillStyle = 'black';
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 0.1;
+    ctx.textAlign = 'center';
+
+    const canvasWidth = ctx.canvas.width;
+
+    if (topText ) {
+      ctx.fillText(topText, canvasWidth / 6, 50);
+      // ctx.strokeText(topText, canvasWidth / 2, 50);
+    }
+
+    if (bottomText) {
+      ctx.fillText(bottomText , canvasWidth / 2, ctx.canvas.height - 20);
+      ctx.strokeText(bottomText, canvasWidth / 2, ctx.canvas.height - 20);
+    }
+  };
+
+  const downloadMeme = () => {
+    const canvas = canvasRef.current;
+    const link = document.createElement('a');
+    link.download = 'meme.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
   return (
     <div className="container">
       <h1>Meme Text Generator</h1>
@@ -64,34 +109,55 @@ const MemeGenerator = () => {
       
 
       <div className="inputs">
-        <label htmlFor="top-text-input">Add funny OG word:</label>
-        <input
-          type="text"
-          id="top-text-input"
-          placeholder="Enter top text"
-          value={topText}
-          onChange={(e) => setTopText(e.target.value)}
-        />
+        <div className="input-group">
+          <label htmlFor="top-text-input">Add funny GG word:</label>
+          <input
+            type="text"
+            id="top-text-input"
+            placeholder="Enter top text"
+            value={topText}
+            onChange={(e) => setTopText(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="bottom-text-input">Add funny GG word:</label>
-        <input
-          type="text"
-          id="bottom-text-input"
-          placeholder="Enter bottom text"
-          value={bottomText}
-          onChange={(e) => setBottomText(e.target.value)}
-        />
+        <div className="input-group">
+          <label htmlFor="bottom-text-input">Add funny OG word:</label>
+          <input
+            type="text"
+            id="bottom-text-input"
+            placeholder="Enter bottom text"
+            value={bottomText}
+            onChange={(e) => setBottomText(e.target.value)}
+          />
+        </div>
       </div>
 
-        <div className="meme-container">
-          <img id="meme-image" src="funnymeme.jpg" alt="Meme Image" />
+        {/* <div className="meme-container">
+          <img id="meme-image" src="ltt.png" alt="Meme Image" />
           <div className="text top-meme-text" id="top-text">
             {topText}
           </div>
           <div className="text bottom-meme-text" id="bottom-text">
             {bottomText}
           </div>
-        </div>
+        </div> */}
+
+        <canvas ref={canvasRef} width={500} height={500} style={{ display: 'none' }}></canvas>
+      <img
+        ref={imageRef}
+        src="ltt.png"
+        alt="Meme"
+        style={{ display: 'none' }}
+        onLoad={() => drawMeme(canvasRef.current.getContext('2d'), imageRef.current)}
+      />
+
+      <button onClick={downloadMeme} disabled={loading}>
+        Download Meme
+      </button>
+
+      <div className="meme-preview">
+        <canvas ref={canvasRef} width={500} height={500} style={{ border: '1px solid black' }}></canvas>
+      </div>
       
     </div>
   );
