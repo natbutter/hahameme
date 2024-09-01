@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { pipeline, env } from '@xenova/transformers';
+// import TextField from '@mui/material/TextField';
 env.allowLocalModels = false;
 
 const MemeGenerator = () => {
@@ -73,18 +74,37 @@ const MemeGenerator = () => {
     // ctx.fillStyle = 'black';
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 0.1;
-    ctx.textAlign = 'center';
+    ctx.textAlign = 'left';
 
-    const canvasWidth = ctx.canvas.width;
+    // const canvasWidth = ctx.canvas.width;
+    // const canvasHeight = ctx.canvas.Height;
 
     if (topText) {
-      ctx.fillText(topText, canvasWidth / 6, 50);
-      // ctx.strokeText(topText, canvasWidth / 2, 50);
+      const lines = [''];
+      for (let i = 0; i < topText.length; i += 10) {
+        lines.push(topText.substring(i, i + 10));
+      }
+
+      ctx.fillText(lines[0], 45, 170);
+      ctx.fillText(lines[1], 45, 180);
+      ctx.fillText(lines[2], 45, 190);
+      ctx.fillText(lines[3], 45, 200);
+      // ctx.fillText(topText, 45, 170); 
     }
 
     if (bottomText) {
-      ctx.fillText(bottomText, canvasWidth / 2, ctx.canvas.height - 20);
-      ctx.strokeText(bottomText, canvasWidth / 2, ctx.canvas.height - 20);
+
+      const lines = [''];
+      for (let i = 0; i < bottomText.length; i += 10) {
+        lines.push(bottomText.substring(i, i + 10));
+      }
+
+      ctx.fillText(lines[0], 390, 170);
+      ctx.fillText(lines[1], 390, 180);
+      ctx.fillText(lines[2], 390, 190);
+      ctx.fillText(lines[3], 390, 200);
+
+      // ctx.strokeText(bottomText, canvasWidth / 2, canvasHeight - 20);
     }
   };
 
@@ -111,13 +131,22 @@ const MemeGenerator = () => {
       <div className="inputs">
         <div className="input-group">
           <label htmlFor="top-text-input">Add funny GG word:</label>
-          <input
-            type="text"
+          <textarea
             id="top-text-input"
-            placeholder="Enter top text"
+            placeholder="green guy words"
             value={topText}
             onChange={(e) => setTopText(e.target.value)}
+            rows="3"
+            maxLength={100}
           />
+
+          {/* <input
+            type="text"
+            id="top-text-input"
+            placeholder="green guy words"
+            value={topText}
+            onChange={(e) => setTopText(e.target.value)}
+          /> */}
         </div>
 
         <div className="input-group">
@@ -125,7 +154,7 @@ const MemeGenerator = () => {
           <input
             type="text"
             id="bottom-text-input"
-            placeholder="Enter bottom text"
+            placeholder="orange guy words"
             value={bottomText}
             onChange={(e) => setBottomText(e.target.value)}
           />
