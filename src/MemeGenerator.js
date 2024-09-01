@@ -70,7 +70,7 @@ const MemeGenerator = () => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    ctx.font = '12px ComicSans';
+    ctx.font = '12px Comic Sans MS';
     // ctx.fillStyle = 'black';
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 0.1;
@@ -118,7 +118,7 @@ const MemeGenerator = () => {
 
   return (
     <div className="container">
-      <h1>Meme Text Generator</h1>
+      <h1>Life in the Trenches</h1>
       <button onClick={generateText} disabled={loading}>
         {loading ? 'Generating...' : 'Use magic computer make funny words'}
       </button>
