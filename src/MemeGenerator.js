@@ -80,7 +80,7 @@ const MemeGenerator = () => {
     // const canvasHeight = ctx.canvas.Height;
 
     if (topText) {
-      const lines = [''];
+      const lines = [];
       for (let i = 0; i < topText.length; i += 10) {
         lines.push(topText.substring(i, i + 10));
       }
@@ -137,26 +137,19 @@ const MemeGenerator = () => {
             value={topText}
             onChange={(e) => setTopText(e.target.value)}
             rows="3"
-            maxLength={100}
+            maxLength={40}
           />
-
-          {/* <input
-            type="text"
-            id="top-text-input"
-            placeholder="green guy words"
-            value={topText}
-            onChange={(e) => setTopText(e.target.value)}
-          /> */}
         </div>
 
         <div className="input-group">
           <label htmlFor="bottom-text-input">Add funny OG word:</label>
-          <input
-            type="text"
+          <textarea
             id="bottom-text-input"
             placeholder="orange guy words"
             value={bottomText}
             onChange={(e) => setBottomText(e.target.value)}
+            rows="3"
+            maxLength={40}
           />
         </div>
       </div>
